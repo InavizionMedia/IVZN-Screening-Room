@@ -9,9 +9,9 @@
 <meta property="og:description" content="Every InavizionMedia build, one room — live previews and repos.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://inavizionmedia.github.io/IVZN-Screening-Room/">
-<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007c">
+<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007c">
+<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23d52620'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial Black'>IV</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,8 +34,9 @@
   *{box-sizing:border-box; margin:0; padding:0}
   body{font-family:'Source Sans 3',system-ui,sans-serif; background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; transition:background .2s ease, color .2s ease}
   header.hero{position:relative; padding:64px 24px 40px; text-align:center; background:var(--hero-grad); border-bottom:1px solid var(--line)}
-  .theme-toggle{position:absolute; top:20px; right:20px; font-family:'Barlow Condensed'; font-weight:500; font-size:12px; letter-spacing:.22em; text-transform:uppercase; background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:6px 14px; cursor:pointer; transition:all .15s ease}
+  .theme-toggle{position:absolute; top:18px; right:18px; width:38px; height:38px; display:grid; place-items:center; background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:50%; cursor:pointer; transition:all .15s ease; padding:0}
   .theme-toggle:hover{color:var(--ink); border-color:var(--muted)}
+  .theme-toggle svg{width:18px; height:18px; display:block}
   .kicker{font-family:'Barlow Condensed'; font-weight:600; letter-spacing:.35em; text-transform:uppercase; font-size:13px; color:var(--red); margin-bottom:12px}
   h1{font-family:'Barlow Condensed'; font-weight:700; font-size:clamp(44px,7vw,76px); line-height:.95; letter-spacing:.01em; text-transform:uppercase}
   h1 .accent{color:var(--red)}
@@ -64,7 +65,7 @@
 </head>
 <body>
 <header class="hero">
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">Light</button>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/></svg></button>
   <div class="kicker">InavizionMedia</div>
   <h1>IVZN <span class="accent">Screening</span> Room</h1>
   <p class="tagline">Every InavizionMedia build, one room. Screen the latest previews, hop into the repos — then send feedback.</p>
@@ -80,7 +81,9 @@
 // theme: dark default, toggle remembers the choice
 (function(){
   var root = document.documentElement, btn = document.getElementById('themeToggle');
-  function label(){ btn.textContent = root.dataset.theme === 'dark' ? 'Light' : 'Dark'; }
+  var ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/></svg>';
+  var ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.2A8 8 0 1 1 10.8 4 6.4 6.4 0 0 0 20 13.2z"/></svg>';
+  function label(){ btn.innerHTML = root.dataset.theme === 'dark' ? ICON_SUN : ICON_MOON; }
   try { var saved = localStorage.getItem('ivzn-theme'); if (saved) root.dataset.theme = saved; } catch(e){}
   label();
   btn.addEventListener('click', function(){
@@ -95,10 +98,10 @@ const PROJECTS = [
     img:"https://inavizionmedia.github.io/InavizionMedia-Remake/assets/og-card.jpg" },
   { repo:"TheStartingBlocks-Remake", name:"The Starting Blocks", desc:"Done-for-you one-page websites.",
     preview:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/",
-    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png?v=20261007c" },
+    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png" },
   { repo:"MyStudioChannel-Remake", name:"My Studio Channel", desc:"Your content. Your channel. Your studio.",
     preview:"https://inavizionmedia.github.io/MyStudioChannel-Remake/",
-    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png?v=20261007c" },
+    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png" },
   { repo:"YolandoMitchellBrown-Remake", name:"Yolando Mitchell Brown", desc:"Virtual creative entrepreneur.",
     preview:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/",
     img:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/assets/og-image.jpg" },
