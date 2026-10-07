@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IVZN Screening Room — Every InavizionMedia Build, One Room</title>
+<meta name="description" content="Every InavizionMedia site in one room — live previews, repos, and branches.">
+<meta property="og:title" content="IVZN Screening Room">
+<meta property="og:description" content="Every InavizionMedia build, one room — live previews, repos, and branches.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://inavizionmedia.github.io/IVZN-Screening-Room/">
+<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23d52620'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial Black'>IV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red:#d52620; --red-dark:#a3120c; --ink:#141210; --muted:#6f6a63;
+    --paper:#faf8f4; --card:#ffffff; --line:#e9e2d8; --gold:#c9a227;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  body{font-family:'Source Sans 3',system-ui,sans-serif; background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased}
+  header.hero{padding:64px 24px 40px; text-align:center; background:linear-gradient(180deg,#fff 0%,var(--paper) 100%); border-bottom:1px solid var(--line)}
+  .kicker{font-family:'Barlow Condensed'; font-weight:600; letter-spacing:.35em; text-transform:uppercase; font-size:13px; color:var(--red); margin-bottom:12px}
+  h1{font-family:'Barlow Condensed'; font-weight:700; font-size:clamp(44px,7vw,76px); line-height:.95; letter-spacing:.01em; text-transform:uppercase}
+  h1 .accent{color:var(--red)}
+  .tagline{margin-top:14px; font-size:17px; color:var(--muted); max-width:620px; margin-left:auto; margin-right:auto}
+  .org-link{display:inline-block; margin-top:18px; font-family:'Barlow Condensed'; font-weight:600; font-size:15px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); text-decoration:none; border-bottom:2px solid var(--red); padding-bottom:2px}
+  main{max-width:1180px; margin:0 auto; padding:44px 24px 80px}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:26px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .18s ease}
+  .card:hover{transform:translateY(-4px); box-shadow:0 18px 40px -18px rgba(213,38,32,.25)}
+  .shot{position:relative; aspect-ratio:16/9; overflow:hidden; background:#111}
+  .shot img{width:100%; height:100%; object-fit:cover; object-position:top; display:block}
+  .badge{position:absolute; top:12px; left:12px; font-family:'Barlow Condensed'; font-weight:600; font-size:12px; letter-spacing:.18em; text-transform:uppercase; background:var(--ink); color:#fff; padding:5px 12px; border-radius:999px}
+  .badge.soon{background:var(--gold); color:#241a00}
+  .body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1}
+  .body h2{font-family:'Barlow Condensed'; font-weight:700; font-size:26px; text-transform:uppercase; letter-spacing:.02em; line-height:1}
+  .body .desc{margin-top:6px; font-size:14.5px; color:var(--muted)}
+  .meta{margin-top:12px; font-size:12.5px; color:var(--muted); display:flex; gap:14px; flex-wrap:wrap}
+  .meta b{color:var(--ink); font-weight:600}
+  .branches{margin-top:10px; display:flex; flex-wrap:wrap; gap:6px}
+  .branches a{font-size:12px; font-family:'Barlow Condensed'; font-weight:600; letter-spacing:.06em; text-decoration:none; color:var(--red-dark); background:#fbe9e7; border:1px solid #f3c1bd; padding:3px 10px; border-radius:999px}
+  .branches a:hover{background:var(--red); color:#fff; border-color:var(--red)}
+  .actions{margin-top:16px; display:flex; gap:10px; margin-top:auto; padding-top:16px}
+  .btn{flex:1; text-align:center; font-family:'Barlow Condensed'; font-weight:600; font-size:15px; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; padding:11px 0; border-radius:9px; border:1.5px solid var(--ink); color:var(--ink); background:#fff; transition:all .15s ease}
+  .btn.primary{background:var(--red); border-color:var(--red); color:#fff}
+  .btn.primary:hover{background:var(--red-dark); border-color:var(--red-dark)}
+  .btn:hover:not(.primary){background:var(--ink); color:#fff}
+  .btn.disabled{opacity:.4; pointer-events:none}
+  footer{text-align:center; padding:36px 24px 60px; color:var(--muted); font-size:13px; border-top:1px solid var(--line)}
+  footer a{color:var(--red-dark); text-decoration:none; font-weight:600}
+  .loading{color:var(--muted); font-size:12.5px}
+  @media(max-width:420px){ .grid{grid-template-columns:1fr} header.hero{padding:48px 18px 32px} }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="kicker">InavizionMedia</div>
+  <h1>IVZN <span class="accent">Screening</span> Room</h1>
+  <p class="tagline">Every InavizionMedia build, one room. Screen the latest previews, hop into the repos, check the branches — then send feedback.</p>
+  <a class="org-link" href="https://github.com/InavizionMedia" target="_blank" rel="noopener">github.com/InavizionMedia</a>
+</header>
+<main>
+  <div class="grid" id="grid"></div>
+</main>
+<footer>
+  Built for <a href="https://github.com/InavizionMedia" target="_blank" rel="noopener">InavizionMedia</a> · Previews via GitHub Pages · <span id="stamp"></span>
+</footer>
+<script>
+const PROJECTS = [
+  { repo:"InavizionMedia-Remake", name:"InavizionMedia", desc:"The flagship — InavizionMedia's own site.",
+    preview:"https://inavizionmedia.github.io/InavizionMedia-Remake/",
+    img:"https://inavizionmedia.github.io/InavizionMedia-Remake/assets/og-card.jpg" },
+  { repo:"TheStartingBlocks-Remake", name:"The Starting Blocks", desc:"Done-for-you one-page websites.",
+    preview:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/",
+    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png" },
+  { repo:"MyStudioChannel-Remake", name:"My Studio Channel", desc:"Your content. Your channel. Your studio.",
+    preview:"https://inavizionmedia.github.io/MyStudioChannel-Remake/",
+    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png" },
+  { repo:"YolandoMitchellBrown-Remake", name:"Yolando Mitchell Brown", desc:"Virtual creative entrepreneur.",
+    preview:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/",
+    img:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/assets/og-image.jpg" },
+  { repo:"EveryWayWoman-Remake", name:"Every Way Woman", desc:"Real talk. Every way.",
+    preview:"https://inavizionmedia.github.io/EveryWayWoman-Remake/",
+    img:"https://inavizionmedia.github.io/EveryWayWoman-Remake/assets/og-image.jpg" },
+  { repo:"TalkshowLand-Remake", name:"Talkshow Land", desc:"In production — research and build in progress.",
+    preview:null, img:null, soon:true },
+];
+const grid = document.getElementById('grid');
+function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); return d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
+PROJECTS.forEach(p=>{
+  const el = document.createElement('article');
+  el.className = 'card';
+  el.innerHTML =
+    '<div class="shot">' +
+      (p.img ? '<img src="'+p.img+'" alt="'+p.name+' preview" loading="lazy">' : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1512,#3a2a20);color:#c9a227;font-family:\'Barlow Condensed\';font-size:22px;letter-spacing:.2em">COMING SOON</div>') +
+      (p.soon ? '<span class="badge soon">In production</span>' : '<span class="badge">Live</span>') +
+    '</div>' +
+    '<div class="body"><h2>'+p.name+'</h2><p class="desc">'+p.desc+'</p>' +
+    '<div class="meta"><span>Last push: <b class="js-push">…</b></span></div>' +
+    '<div class="branches js-branches"><span class="loading">Loading branches…</span></div>' +
+    '<div class="actions">' +
+      (p.preview
+        ? '<a class="btn primary" href="'+p.preview+'" target="_blank" rel="noopener">Preview</a>'
+        : '<span class="btn primary disabled">Preview soon</span>') +
+      '<a class="btn" href="https://github.com/InavizionMedia/'+p.repo+'" target="_blank" rel="noopener">Repo</a>' +
+      '<a class="btn" href="https://github.com/InavizionMedia/'+p.repo+'/branches" target="_blank" rel="noopener">Branches</a>' +
+    '</div></div>';
+  grid.appendChild(el);
+  // live repo data: last push + branch pills
+  fetch('https://api.github.com/repos/InavizionMedia/'+p.repo).then(r=>r.json()).then(d=>{
+    el.querySelector('.js-push').textContent = fmtDate(d.pushed_at);
+  }).catch(()=>{ el.querySelector('.js-push').textContent = '—'; });
+  fetch('https://api.github.com/repos/InavizionMedia/'+p.repo+'/branches?per_page=10').then(r=>r.json()).then(list=>{
+    const box = el.querySelector('.js-branches');
+    if(!Array.isArray(list) || !list.length){ box.innerHTML='<span class="loading">No branches found</span>'; return; }
+    box.innerHTML = list.slice(0,6).map(b=>
+      '<a href="https://github.com/InavizionMedia/'+p.repo+'/tree/'+encodeURIComponent(b.name)+'" target="_blank" rel="noopener">'+b.name+'</a>'
+    ).join('');
+  }).catch(()=>{ el.querySelector('.js-branches').innerHTML='<span class="loading">Branches unavailable</span>'; });
+});
+document.getElementById('stamp').textContent = 'Updated ' + new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+</script>
+</body>
+</html>
