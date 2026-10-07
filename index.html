@@ -34,8 +34,8 @@
   *{box-sizing:border-box; margin:0; padding:0}
   body{font-family:'Source Sans 3',system-ui,sans-serif; background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; transition:background .2s ease, color .2s ease}
   header.hero{position:relative; padding:64px 24px 40px; text-align:center; background:var(--hero-grad); border-bottom:1px solid var(--line)}
-  .theme-toggle{position:absolute; top:18px; right:18px; font-family:'Barlow Condensed'; font-weight:600; font-size:14px; letter-spacing:.14em; text-transform:uppercase; background:transparent; color:var(--ink); border:1.5px solid var(--line); border-radius:999px; padding:8px 18px; cursor:pointer; transition:all .15s ease}
-  .theme-toggle:hover{border-color:var(--red); color:var(--red)}
+  .theme-toggle{position:absolute; top:20px; right:20px; font-family:'Barlow Condensed'; font-weight:500; font-size:12px; letter-spacing:.22em; text-transform:uppercase; background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:6px 14px; cursor:pointer; transition:all .15s ease}
+  .theme-toggle:hover{color:var(--ink); border-color:var(--muted)}
   .kicker{font-family:'Barlow Condensed'; font-weight:600; letter-spacing:.35em; text-transform:uppercase; font-size:13px; color:var(--red); margin-bottom:12px}
   h1{font-family:'Barlow Condensed'; font-weight:700; font-size:clamp(44px,7vw,76px); line-height:.95; letter-spacing:.01em; text-transform:uppercase}
   h1 .accent{color:var(--red)}
@@ -64,7 +64,7 @@
 </head>
 <body>
 <header class="hero">
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">☀ Light</button>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode">Light</button>
   <div class="kicker">InavizionMedia</div>
   <h1>IVZN <span class="accent">Screening</span> Room</h1>
   <p class="tagline">Every InavizionMedia build, one room. Screen the latest previews, hop into the repos — then send feedback.</p>
@@ -80,7 +80,7 @@
 // theme: dark default, toggle remembers the choice
 (function(){
   var root = document.documentElement, btn = document.getElementById('themeToggle');
-  function label(){ btn.textContent = root.dataset.theme === 'dark' ? '☀ Light' : '☾ Dark'; }
+  function label(){ btn.textContent = root.dataset.theme === 'dark' ? 'Light' : 'Dark'; }
   try { var saved = localStorage.getItem('ivzn-theme'); if (saved) root.dataset.theme = saved; } catch(e){}
   label();
   btn.addEventListener('click', function(){
