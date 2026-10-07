@@ -87,15 +87,38 @@
 // theme: dark default, toggle remembers the choice
 (function(){
   var root = document.documentElement, btn = document.getElementById('themeToggle');
+  var THEMES = {
+    light:{
+      '--red':'#d52620','--red-dark':'#a3120c','--ink':'#141210','--muted':'#6f6a63',
+      '--paper':'#faf8f4','--mid':'#f1ece2','--card':'#ffffff','--line':'#e9e2d8','--gold':'#c9a227',
+      '--hero-grad':'linear-gradient(180deg,#ffffff 0%,#faf8f4 100%)',
+      '--btn-bg':'#ffffff','--shadow':'0 18px 40px -18px rgba(213,38,32,.25)'
+    },
+    dark:{
+      '--red':'#e92720','--red-dark':'#ff6b62','--ink':'#f5f5f6','--muted':'#a7a7b0',
+      '--paper':'#0a0a0c','--mid':'#101014','--card':'#16161a','--line':'#26262e','--gold':'#c9a227',
+      '--hero-grad':'radial-gradient(900px 380px at 50% -60px, rgba(255,255,255,.06), transparent 70%), linear-gradient(180deg,#141418 0%,#0a0a0c 100%)',
+      '--card-grad':'linear-gradient(180deg,#1a1a1f 0%,#131316 100%)',
+      '--btn-bg':'#16161a','--shadow':'0 18px 44px -18px rgba(233,39,32,.35)'
+    }
+  };
+  function applyTheme(t){
+    root.dataset.theme = t;
+    var vars = THEMES[t], k;
+    for(k in vars){ root.style.setProperty(k, vars[k]); }
+    if(t === 'light'){ root.style.removeProperty('--card-grad'); }
+    label();
+  }
   var ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5 5l1.7 1.7M17.3 17.3L19 19M19 5l-1.7 1.7M6.7 17.3L5 19"/></svg>';
   var ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.2A8 8 0 1 1 10.8 4 6.4 6.4 0 0 0 20 13.2z"/></svg>';
   function label(){ btn.innerHTML = root.dataset.theme === 'dark' ? ICON_SUN : ICON_MOON; }
-  try { var saved = localStorage.getItem('ivzn-theme'); if (saved) root.dataset.theme = saved; } catch(e){}
-  label();
+  var start = 'dark';
+  try { var saved = localStorage.getItem('ivzn-theme'); if (saved === 'light' || saved === 'dark') start = saved; } catch(e){}
+  applyTheme(start);
   btn.addEventListener('click', function(){
-    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    try { localStorage.setItem('ivzn-theme', root.dataset.theme); } catch(e){}
-    label();
+    var next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    try { localStorage.setItem('ivzn-theme', next); } catch(e){}
+    applyTheme(next);
   });
 })();
 const PROJECTS = [
