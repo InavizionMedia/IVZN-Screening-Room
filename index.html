@@ -9,9 +9,9 @@
 <meta property="og:description" content="Every InavizionMedia build, one room — live previews and repos.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://inavizionmedia.github.io/IVZN-Screening-Room/">
-<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007f">
+<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007f">
+<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23d52620'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial Black'>IV</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,20 +19,20 @@
 <style>
   :root{
     --red:#d52620; --red-dark:#a3120c; --ink:#141210; --muted:#6f6a63;
-    --paper:#faf8f4; --card:#ffffff; --line:#e9e2d8; --gold:#c9a227;
+    --paper:#faf8f4; --mid:#f1ece2; --card:#ffffff; --line:#e9e2d8; --gold:#c9a227;
     --hero-grad:linear-gradient(180deg,#ffffff 0%,#faf8f4 100%);
     --btn-bg:#ffffff;
     --shadow:0 18px 40px -18px rgba(213,38,32,.25);
   }
   [data-theme="dark"]{
     --red:#e92720; --red-dark:#ff6b62; --ink:#f2ede4; --muted:#a39a8b;
-    --paper:#100e0c; --card:#1b1815; --line:#2e2822; --gold:#c9a227;
+    --paper:#100e0c; --mid:#171310; --card:#1b1815; --line:#2e2822; --gold:#c9a227;
     --hero-grad:linear-gradient(180deg,#1b1815 0%,#100e0c 100%);
     --btn-bg:#1b1815;
     --shadow:0 18px 44px -18px rgba(233,39,32,.35);
   }
   *{box-sizing:border-box; margin:0; padding:0}
-  body{font-family:'Source Sans 3',system-ui,sans-serif; background:var(--paper); color:var(--ink); -webkit-font-smoothing:antialiased; transition:background .2s ease, color .2s ease}
+  body{font-family:'Source Sans 3',system-ui,sans-serif; background:var(--mid); color:var(--ink); -webkit-font-smoothing:antialiased; transition:background .2s ease, color .2s ease}
   header.hero{position:relative; padding:64px 24px 40px; text-align:center; background:var(--hero-grad); border-bottom:1px solid var(--line)}
   .theme-toggle{position:absolute; top:18px; right:18px; width:38px; height:38px; background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:50%; cursor:pointer; transition:all .15s ease; padding:0; opacity:.5}
   @media (hover:hover){
@@ -61,7 +61,7 @@
   .btn.primary{background:var(--red); border-color:var(--red); color:#fff}
   .btn.primary:hover{background:var(--red-dark); border-color:var(--red-dark)}
   .btn:hover:not(.primary){background:var(--ink); color:var(--paper)}
-  footer{text-align:center; padding:36px 24px 60px; color:var(--muted); font-size:13px; border-top:1px solid var(--line)}
+  footer{text-align:center; padding:36px 24px 60px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); background:var(--paper)}
   footer a{color:var(--red-dark); text-decoration:none; font-weight:600}
   @media(max-width:420px){ .grid{grid-template-columns:1fr} header.hero{padding:48px 18px 32px} .theme-toggle{top:12px; right:12px; padding:6px 14px} }
 </style>
