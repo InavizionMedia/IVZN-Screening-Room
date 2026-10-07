@@ -14,7 +14,7 @@
 
 **https://inavizionmedia.github.io/IVZN-Screening-Room/**
 
-![IVZN Screening Room](assets/screenshot.png?v=20261007e)
+![IVZN Screening Room](assets/screenshot.png?v=20261007f)
 
 ## What's inside
 
