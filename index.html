@@ -9,9 +9,9 @@
 <meta property="og:description" content="Every InavizionMedia build, one room — live previews and repos.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://inavizionmedia.github.io/IVZN-Screening-Room/">
-<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007d">
+<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007d">
+<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23d52620'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial Black'>IV</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,13 +101,14 @@ const PROJECTS = [
     img:"https://inavizionmedia.github.io/InavizionMedia-Remake/assets/og-card.jpg" },
   { repo:"TheStartingBlocks-Remake", name:"The Starting Blocks", desc:"Done-for-you one-page websites.",
     preview:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/",
-    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png?v=20261007d" },
+    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png" },
   { repo:"MyStudioChannel-Remake", name:"My Studio Channel", desc:"Your content. Your channel. Your studio.",
     preview:"https://inavizionmedia.github.io/MyStudioChannel-Remake/",
-    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png?v=20261007d" },
+    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png" },
   { repo:"YolandoMitchellBrown-Remake", name:"Yolando Mitchell Brown", desc:"Virtual creative entrepreneur.",
     preview:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/",
-    img:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/assets/og-image.jpg" },
+    img:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/assets/og-image.jpg",
+    fit:"contain", bg:"#fdf9f4" },
   { repo:"EveryWayWoman-Remake", name:"Every Way Woman", desc:"Real talk. Every way.",
     preview:"https://inavizionmedia.github.io/EveryWayWoman-Remake/",
     img:"https://inavizionmedia.github.io/EveryWayWoman-Remake/assets/og-image.jpg" },
@@ -121,8 +122,8 @@ PROJECTS.forEach(p=>{
   const el = document.createElement('article');
   el.className = 'card';
   el.innerHTML =
-    '<div class="shot">' +
-      '<img src="'+p.img+'" alt="'+p.name+' preview" loading="lazy">' +
+    '<div class="shot"'+(p.bg?' style="background:'+p.bg+'"':'')+'>' +
+      '<img src="'+p.img+'" alt="'+p.name+' preview" loading="lazy"'+(p.fit?' style="object-fit:'+p.fit+'"':'')+'>' +
     '</div>' +
     '<div class="body"><h2>'+p.name+'</h2><p class="desc">'+p.desc+'</p>' +
     '<div class="meta"><span>Last push: <b class="js-push">…</b></span></div>' +
