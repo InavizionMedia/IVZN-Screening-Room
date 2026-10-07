@@ -9,9 +9,9 @@
 <meta property="og:description" content="Every InavizionMedia build, one room — live previews and repos.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://inavizionmedia.github.io/IVZN-Screening-Room/">
-<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007h">
+<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007g">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007h">
+<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007g">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23d52620'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial Black'>IV</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,7 @@
   main{max-width:1180px; margin:0 auto; padding:44px 24px 80px}
   .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:26px}
   .card{background:var(--card-grad,var(--card)); border:1px solid var(--line); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .18s ease, background .2s ease, border-color .2s ease}
-  .card:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
+  .card:not(.deck-card):hover{transform:translateY(-4px); box-shadow:var(--shadow)}
   .shot{position:relative; aspect-ratio:16/9; overflow:hidden; background:#111}
   .shot img{width:100%; height:100%; object-fit:cover; object-position:top; display:block}
   .body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1}
@@ -66,6 +66,39 @@
   .btn:hover:not(.primary){background:var(--ink); color:var(--paper)}
   footer{text-align:center; padding:36px 24px 60px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); background:var(--paper)}
   footer a{color:var(--red-dark); text-decoration:none; font-weight:600}
+
+  /* ---- v3 experiment: deck ---- */
+  .deck-zone{margin-top:70px}
+  .deck-title{text-align:center; margin-bottom:22px}
+  .deck-title .kicker{display:block; font-family:'Barlow Condensed'; font-weight:600; font-size:13px; letter-spacing:.28em; text-transform:uppercase; color:var(--red); margin-bottom:8px}
+  .deck-title h2{font-family:'Barlow Condensed'; font-weight:700; font-size:34px; text-transform:uppercase; letter-spacing:.02em; line-height:1}
+  .deck-shell{position:relative; min-height:560px; overflow:hidden; border:1px solid var(--line); border-radius:16px; perspective:1400px; touch-action:pan-y;
+    background:linear-gradient(180deg, rgba(22,22,26,.92), rgba(16,16,20,.55))}
+  [data-theme="light"] .deck-shell{background:linear-gradient(180deg,#ffffff,#f1ece2)}
+  .deck-head{position:absolute; z-index:12; top:16px; left:22px; right:22px; display:flex; align-items:center; justify-content:space-between; pointer-events:none; color:var(--muted); font-size:12px}
+  .deck-count{font-weight:600; letter-spacing:.06em}
+  .deck-stage{position:absolute; inset:56px 0 78px; transform-style:preserve-3d}
+  .deck-card{position:absolute; top:50%; left:50%; width:min(340px,calc(100vw - 64px)); margin:0;
+    transform:translate(-50%,-50%) scale(.6); opacity:0; pointer-events:none;
+    transition:transform .55s cubic-bezier(.22,.8,.28,1), opacity .45s ease, filter .45s ease}
+  .deck-card.pos-0{z-index:6; opacity:1; pointer-events:auto; transform:translate(-50%,-50%) translateZ(80px) rotateY(0deg) scale(1)}
+  .deck-card.pos-1{z-index:4; opacity:.8; pointer-events:auto; filter:saturate(.75) brightness(.8);
+    transform:translate(calc(-50% + 272px),-50%) translateZ(-60px) rotateY(-32deg) scale(.84)}
+  .deck-card.pos--1{z-index:4; opacity:.8; pointer-events:auto; filter:saturate(.75) brightness(.8);
+    transform:translate(calc(-50% - 272px),-50%) translateZ(-60px) rotateY(32deg) scale(.84)}
+  .deck-card.pos-2{z-index:2; opacity:.3; transform:translate(calc(-50% + 462px),-50%) translateZ(-160px) rotateY(-42deg) scale(.68)}
+  .deck-card.pos--2{z-index:2; opacity:.3; transform:translate(calc(-50% - 462px),-50%) translateZ(-160px) rotateY(42deg) scale(.68)}
+  .deck-controls{position:absolute; z-index:12; bottom:18px; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:16px}
+  .deck-arrow{width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--btn-bg); color:var(--ink); font-size:18px; cursor:pointer; transition:all .15s ease; line-height:1}
+  .deck-arrow:hover{border-color:var(--red); color:var(--red)}
+  .deck-dots{display:flex; gap:8px; align-items:center}
+  .deck-dot{width:8px; height:8px; border-radius:50%; border:none; background:var(--line); padding:0; cursor:pointer; transition:background .2s ease}
+  .deck-dot[aria-current="true"]{background:var(--red)}
+  @media(max-width:640px){
+    .deck-card.pos-1{transform:translate(calc(-50% + 208px),-50%) translateZ(-60px) rotateY(-30deg) scale(.8)}
+    .deck-card.pos--1{transform:translate(calc(-50% - 208px),-50%) translateZ(-60px) rotateY(30deg) scale(.8)}
+    .deck-card.pos-2,.deck-card.pos--2{opacity:0}
+  }
   @media(max-width:420px){ .grid{grid-template-columns:1fr} header.hero{padding:48px 18px 32px} .theme-toggle{top:12px; right:12px; padding:6px 14px} }
 </style>
 </head>
@@ -79,6 +112,24 @@
 </header>
 <main>
   <div class="grid" id="grid"></div>
+  <section class="deck-zone" aria-label="Browse the deck">
+    <div class="deck-title">
+      <span class="kicker">The deck</span>
+      <h2>Browse the room, card by card</h2>
+    </div>
+    <div class="deck-shell" id="deckShell" tabindex="0">
+      <div class="deck-head">
+        <span class="deck-count" id="deckCount" aria-live="polite"></span>
+        <span class="deck-hint">Browse the deck &middot; hit &larr; &rarr;</span>
+      </div>
+      <div class="deck-stage" id="deckStage"></div>
+      <div class="deck-controls">
+        <button class="deck-arrow" id="deckPrev" type="button" aria-label="Previous card">&larr;</button>
+        <div class="deck-dots" id="deckDots"></div>
+        <button class="deck-arrow" id="deckNext" type="button" aria-label="Next card">&rarr;</button>
+      </div>
+    </div>
+  </section>
 </main>
 <footer>
   Built for <a href="https://github.com/InavizionMedia" target="_blank" rel="noopener">InavizionMedia</a> · Previews via GitHub Pages · <span id="stamp"></span>
@@ -121,11 +172,8 @@ const PROJECTS = [
 ];
 const grid = document.getElementById('grid');
 function fmtDate(iso){ if(!iso) return '—'; const d=new Date(iso); return d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}); }
-PROJECTS.forEach(p=>{
-  const el = document.createElement('article');
-  el.className = 'card';
-  el.innerHTML =
-    '<div class="shot"'+(p.bg?' style="background:'+p.bg+'"':'')+'>' +
+function cardInner(p){
+  return '<div class="shot"'+(p.bg?' style="background:'+p.bg+'"':'')+'>' +
       '<img src="'+p.img+'" alt="'+p.name+' preview" loading="lazy"'+(p.fit?' style="object-fit:'+p.fit+'"':'')+'>' +
     '</div>' +
     '<div class="body"><h2>'+p.name+'</h2><p class="desc">'+p.desc+'</p>' +
@@ -134,11 +182,76 @@ PROJECTS.forEach(p=>{
       '<a class="btn primary" href="'+p.preview+'" target="_blank" rel="noopener">Preview</a>' +
       '<a class="btn" href="https://github.com/InavizionMedia/'+p.repo+'" target="_blank" rel="noopener">Repo</a>' +
     '</div></div>';
+}
+PROJECTS.forEach(p=>{
+  const el = document.createElement('article');
+  el.className = 'card';
+  el.setAttribute('data-push', p.repo);
+  el.innerHTML = cardInner(p);
   grid.appendChild(el);
-  fetch('https://api.github.com/repos/InavizionMedia/'+p.repo).then(r=>r.json()).then(d=>{
-    el.querySelector('.js-push').textContent = fmtDate(d.pushed_at);
-  }).catch(()=>{ el.querySelector('.js-push').textContent = '—'; });
 });
+// ---- v3 experiment: deck ----
+let deckIndex = 0;
+const deckStage = document.getElementById('deckStage');
+const deckDots = document.getElementById('deckDots');
+const deckCount = document.getElementById('deckCount');
+const deckShell = document.getElementById('deckShell');
+function deckWrap(i, n){ return ((i % n) + n) % n; }
+function renderDeck(){
+  const n = PROJECTS.length;
+  deckIndex = deckWrap(deckIndex, n);
+  deckStage.innerHTML = PROJECTS.map((p, vi) =>
+    '<article class="card deck-card" data-push="'+p.repo+'" data-vi="'+vi+'">'+cardInner(p)+'</article>').join('');
+  const cards = deckStage.children;
+  deckDots.innerHTML = '';
+  for(let vi = 0; vi < n; vi++){
+    let off = vi - deckIndex;
+    if(off > n/2) off -= n;
+    if(off < -n/2) off += n;
+    const card = cards[vi];
+    card.classList.add('pos-' + off);
+    if(Math.abs(off) > 2) card.hidden = true;
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'deck-dot';
+    dot.setAttribute('aria-label', 'Show ' + PROJECTS[vi].name);
+    dot.setAttribute('aria-current', vi === deckIndex ? 'true' : 'false');
+    dot.addEventListener('click', ()=>{ deckIndex = vi; renderDeck(); refreshPushDates(); });
+    deckDots.appendChild(dot);
+  }
+  deckCount.textContent = (deckIndex + 1) + ' of ' + n;
+}
+function moveDeck(d){ deckIndex = deckWrap(deckIndex + d, PROJECTS.length); renderDeck(); refreshPushDates(); }
+document.getElementById('deckPrev').addEventListener('click', ()=>moveDeck(-1));
+document.getElementById('deckNext').addEventListener('click', ()=>moveDeck(1));
+document.addEventListener('keydown', e=>{
+  if(e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const r = deckShell.getBoundingClientRect();
+  if(r.bottom < 0 || r.top > window.innerHeight) return; // deck off-screen: ignore
+  e.preventDefault();
+  moveDeck(e.key === 'ArrowLeft' ? -1 : 1);
+});
+let touchX = null;
+deckShell.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+deckShell.addEventListener('touchend', e=>{
+  if(touchX === null) return;
+  const dx = e.changedTouches[0].clientX - touchX;
+  if(Math.abs(dx) > 40) moveDeck(dx > 0 ? -1 : 1);
+  touchX = null;
+}, {passive:true});
+renderDeck();
+// last-push dates fill both the grid and the deck
+function refreshPushDates(){
+  PROJECTS.forEach(p=>{
+    fetch('https://api.github.com/repos/InavizionMedia/'+p.repo).then(r=>r.json()).then(d=>{
+      const t = fmtDate(d.pushed_at);
+      document.querySelectorAll('[data-push="'+p.repo+'"] .js-push').forEach(el=>{ el.textContent = t; });
+    }).catch(()=>{
+      document.querySelectorAll('[data-push="'+p.repo+'"] .js-push').forEach(el=>{ el.textContent = '—'; });
+    });
+  });
+}
+refreshPushDates();
 document.getElementById('stamp').textContent = 'Updated ' + new Date().toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
 </script>
 </body>
