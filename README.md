@@ -2,7 +2,7 @@
 
 > Every InavizionMedia build, one room — screen the latest previews, hop into the repos, check the branches.
 
-**Branch policy:** work happens on the latest *-vN / project branch. List branches before editing. Never assume the GitHub default is the working line. Working line: main (GitHub default is main).
+**Branch policy:** work happens on the latest *-vN / project branch. List branches before editing. Never assume the GitHub default is the working line. Working line: IVZN-Screening-Room-v2 (GitHub default is main).
 
 [![Pages](https://img.shields.io/badge/Pages-live-brightgreen)](https://inavizionmedia.github.io/IVZN-Screening-Room/)
 [![Preview](https://img.shields.io/badge/Preview-live-red)](https://inavizionmedia.github.io/IVZN-Screening-Room/)
