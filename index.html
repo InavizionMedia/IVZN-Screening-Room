@@ -73,14 +73,15 @@
   .deck-title .kicker{display:block; font-family:'Barlow Condensed'; font-weight:600; font-size:13px; letter-spacing:.28em; text-transform:uppercase; color:var(--red); margin-bottom:8px}
   .deck-title h2{font-family:'Barlow Condensed'; font-weight:700; font-size:34px; text-transform:uppercase; letter-spacing:.02em; line-height:1}
   .deck-shell{position:relative; min-height:560px; overflow:hidden; border:1px solid var(--line); border-radius:16px; perspective:1400px; touch-action:pan-y;
-    background:linear-gradient(180deg, rgba(22,22,26,.92), rgba(16,16,20,.55))}
+    background:linear-gradient(180deg, rgba(22,22,26,.92), rgba(16,16,20,.55));
+    transition:background .25s ease, border-color .25s ease}
   [data-theme="light"] .deck-shell{background:linear-gradient(180deg,#ffffff,#f1ece2)}
   .deck-head{position:absolute; z-index:12; top:16px; left:22px; right:22px; display:flex; align-items:center; justify-content:space-between; pointer-events:none; color:var(--muted); font-size:12px}
   .deck-count{font-weight:600; letter-spacing:.06em}
   .deck-stage{position:absolute; inset:56px 0 78px; transform-style:preserve-3d}
   .deck-card{position:absolute; top:50%; left:50%; width:min(340px,calc(100vw - 64px)); margin:0;
     transform:translate(-50%,-50%) scale(.6); opacity:0; pointer-events:none;
-    transition:transform .55s cubic-bezier(.22,.8,.28,1), opacity .45s ease, filter .45s ease}
+    transition:transform .55s cubic-bezier(.22,.8,.28,1), opacity .45s ease, filter .45s ease, background .25s ease, border-color .25s ease}
   .deck-card.pos-0{z-index:6; opacity:1; pointer-events:auto; transform:translate(-50%,-50%) translateZ(80px) rotateY(0deg) scale(1)}
   .deck-card.pos-1{z-index:4; opacity:.8; pointer-events:auto; filter:saturate(.75) brightness(.8);
     transform:translate(calc(-50% + 272px),-50%) translateZ(-60px) rotateY(-32deg) scale(.84)}
@@ -88,6 +89,8 @@
     transform:translate(calc(-50% - 272px),-50%) translateZ(-60px) rotateY(32deg) scale(.84)}
   .deck-card.pos-2{z-index:2; opacity:.3; transform:translate(calc(-50% + 462px),-50%) translateZ(-160px) rotateY(-42deg) scale(.68)}
   .deck-card.pos--2{z-index:2; opacity:.3; transform:translate(calc(-50% - 462px),-50%) translateZ(-160px) rotateY(42deg) scale(.68)}
+  .deck-card.pos-3{z-index:1; opacity:0; pointer-events:none; transform:translate(calc(-50% + 640px),-50%) translateZ(-260px) rotateY(-48deg) scale(.55)}
+  .deck-card.pos--3{z-index:1; opacity:0; pointer-events:none; transform:translate(calc(-50% - 640px),-50%) translateZ(-260px) rotateY(48deg) scale(.55)}
   .deck-controls{position:absolute; z-index:12; bottom:18px; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:16px}
   .deck-arrow{width:44px; height:44px; border-radius:50%; border:1px solid var(--line); background:var(--btn-bg); color:var(--ink); font-size:18px; cursor:pointer; transition:all .15s ease; line-height:1}
   .deck-arrow:hover{border-color:var(--red); color:var(--red)}
@@ -197,31 +200,33 @@ const deckDots = document.getElementById('deckDots');
 const deckCount = document.getElementById('deckCount');
 const deckShell = document.getElementById('deckShell');
 function deckWrap(i, n){ return ((i % n) + n) % n; }
+function buildDeck(){
+  deckStage.innerHTML = PROJECTS.map((p) =>
+    '<article class="card deck-card" data-push="'+p.repo+'">'+cardInner(p)+'</article>').join('');
+  PROJECTS.forEach((p, vi)=>{
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'deck-dot';
+    dot.setAttribute('aria-label', 'Show ' + p.name);
+    dot.addEventListener('click', ()=>{ deckIndex = vi; renderDeck(); });
+    deckDots.appendChild(dot);
+  });
+}
 function renderDeck(){
   const n = PROJECTS.length;
   deckIndex = deckWrap(deckIndex, n);
-  deckStage.innerHTML = PROJECTS.map((p, vi) =>
-    '<article class="card deck-card" data-push="'+p.repo+'" data-vi="'+vi+'">'+cardInner(p)+'</article>').join('');
   const cards = deckStage.children;
-  deckDots.innerHTML = '';
+  const dots = deckDots.children;
   for(let vi = 0; vi < n; vi++){
     let off = vi - deckIndex;
     if(off > n/2) off -= n;
     if(off < -n/2) off += n;
-    const card = cards[vi];
-    card.classList.add('pos-' + off);
-    if(Math.abs(off) > 2) card.hidden = true;
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.className = 'deck-dot';
-    dot.setAttribute('aria-label', 'Show ' + PROJECTS[vi].name);
-    dot.setAttribute('aria-current', vi === deckIndex ? 'true' : 'false');
-    dot.addEventListener('click', ()=>{ deckIndex = vi; renderDeck(); refreshPushDates(); });
-    deckDots.appendChild(dot);
+    cards[vi].className = 'card deck-card pos-' + off;
+    dots[vi].setAttribute('aria-current', vi === deckIndex ? 'true' : 'false');
   }
   deckCount.textContent = (deckIndex + 1) + ' of ' + n;
 }
-function moveDeck(d){ deckIndex = deckWrap(deckIndex + d, PROJECTS.length); renderDeck(); refreshPushDates(); }
+function moveDeck(d){ deckIndex = deckWrap(deckIndex + d, PROJECTS.length); renderDeck(); }
 document.getElementById('deckPrev').addEventListener('click', ()=>moveDeck(-1));
 document.getElementById('deckNext').addEventListener('click', ()=>moveDeck(1));
 document.addEventListener('keydown', e=>{
@@ -239,6 +244,7 @@ deckShell.addEventListener('touchend', e=>{
   if(Math.abs(dx) > 40) moveDeck(dx > 0 ? -1 : 1);
   touchX = null;
 }, {passive:true});
+buildDeck();
 renderDeck();
 // last-push dates fill both the grid and the deck
 function refreshPushDates(){
