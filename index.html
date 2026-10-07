@@ -9,9 +9,9 @@
 <meta property="og:description" content="Every InavizionMedia build, one room — live previews and repos.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://inavizionmedia.github.io/IVZN-Screening-Room/">
-<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007b">
+<meta property="og:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png?v=20261007b">
+<meta name="twitter:image" content="https://inavizionmedia.github.io/IVZN-Screening-Room/assets/screenshot.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23d52620'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Arial Black'>IV</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,14 +21,14 @@
     --red:#d52620; --red-dark:#a3120c; --ink:#141210; --muted:#6f6a63;
     --paper:#faf8f4; --card:#ffffff; --line:#e9e2d8; --gold:#c9a227;
     --hero-grad:linear-gradient(180deg,#ffffff 0%,#faf8f4 100%);
-    --btn-bg:#ffffff; --badge-bg:#141210; --badge-text:#ffffff;
+    --btn-bg:#ffffff;
     --shadow:0 18px 40px -18px rgba(213,38,32,.25);
   }
   [data-theme="dark"]{
     --red:#e92720; --red-dark:#ff6b62; --ink:#f2ede4; --muted:#a39a8b;
     --paper:#100e0c; --card:#1b1815; --line:#2e2822; --gold:#c9a227;
     --hero-grad:linear-gradient(180deg,#1b1815 0%,#100e0c 100%);
-    --btn-bg:#1b1815; --badge-bg:#f2ede4; --badge-text:#141210;
+    --btn-bg:#1b1815;
     --shadow:0 18px 44px -18px rgba(233,39,32,.35);
   }
   *{box-sizing:border-box; margin:0; padding:0}
@@ -47,7 +47,6 @@
   .card:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
   .shot{position:relative; aspect-ratio:16/9; overflow:hidden; background:#111}
   .shot img{width:100%; height:100%; object-fit:cover; object-position:top; display:block}
-  .badge{position:absolute; top:12px; left:12px; font-family:'Barlow Condensed'; font-weight:600; font-size:12px; letter-spacing:.18em; text-transform:uppercase; background:var(--badge-bg); color:var(--badge-text); padding:5px 12px; border-radius:999px}
   .body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1}
   .body h2{font-family:'Barlow Condensed'; font-weight:700; font-size:26px; text-transform:uppercase; letter-spacing:.02em; line-height:1}
   .body .desc{margin-top:6px; font-size:14.5px; color:var(--muted)}
@@ -96,10 +95,10 @@ const PROJECTS = [
     img:"https://inavizionmedia.github.io/InavizionMedia-Remake/assets/og-card.jpg" },
   { repo:"TheStartingBlocks-Remake", name:"The Starting Blocks", desc:"Done-for-you one-page websites.",
     preview:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/",
-    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png?v=20261007b" },
+    img:"https://inavizionmedia.github.io/TheStartingBlocks-Remake/assets/screenshot.png" },
   { repo:"MyStudioChannel-Remake", name:"My Studio Channel", desc:"Your content. Your channel. Your studio.",
     preview:"https://inavizionmedia.github.io/MyStudioChannel-Remake/",
-    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png?v=20261007b" },
+    img:"https://inavizionmedia.github.io/MyStudioChannel-Remake/assets/screenshot.png" },
   { repo:"YolandoMitchellBrown-Remake", name:"Yolando Mitchell Brown", desc:"Virtual creative entrepreneur.",
     preview:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/",
     img:"https://inavizionmedia.github.io/YolandoMitchellBrown-Remake/assets/og-image.jpg" },
@@ -118,7 +117,6 @@ PROJECTS.forEach(p=>{
   el.innerHTML =
     '<div class="shot">' +
       '<img src="'+p.img+'" alt="'+p.name+' preview" loading="lazy">' +
-      '<span class="badge">Live</span>' +
     '</div>' +
     '<div class="body"><h2>'+p.name+'</h2><p class="desc">'+p.desc+'</p>' +
     '<div class="meta"><span>Last push: <b class="js-push">…</b></span></div>' +
