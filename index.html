@@ -78,10 +78,13 @@
   [data-theme="light"] .deck-shell{background:linear-gradient(180deg,#ffffff,#f1ece2)}
   .deck-head{position:absolute; z-index:12; top:16px; left:22px; right:22px; display:flex; align-items:center; justify-content:space-between; pointer-events:none; color:var(--muted); font-size:12px}
   .deck-count{font-weight:600; letter-spacing:.06em}
-  .deck-stage{position:absolute; inset:56px 0 78px; transform-style:preserve-3d}
+  .deck-stage{position:absolute; inset:56px 0 78px; transform-style:preserve-3d; transform:translateX(var(--drag,0px))}
   .deck-card{position:absolute; top:50%; left:50%; width:min(340px,calc(100vw - 64px)); margin:0;
     transform:translate(-50%,-50%) scale(.6); opacity:0; pointer-events:none;
     transition:transform .55s cubic-bezier(.22,.8,.28,1), opacity .45s ease, filter .45s ease, background .25s ease, border-color .25s ease}
+  .deck-card{cursor:grab}
+  .deck-shell.dragging{user-select:none; -webkit-user-select:none}
+  .deck-shell.dragging, .deck-shell.dragging .deck-card{cursor:grabbing}
   .deck-card.pos-0{z-index:6; opacity:1; pointer-events:auto; transform:translate(-50%,-50%) translateZ(80px) rotateY(0deg) scale(1)}
   .deck-card.pos-1{z-index:4; opacity:.8; pointer-events:auto; filter:saturate(.75) brightness(.8);
     transform:translate(calc(-50% + 272px),-50%) translateZ(-60px) rotateY(-32deg) scale(.84)}
@@ -259,14 +262,39 @@ document.addEventListener('keydown', e=>{
   e.preventDefault();
   moveDeck(e.key === 'ArrowLeft' ? -1 : 1);
 });
-let touchX = null;
-deckShell.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
-deckShell.addEventListener('touchend', e=>{
-  if(touchX === null) return;
-  const dx = e.changedTouches[0].clientX - touchX;
-  if(Math.abs(dx) > 40) moveDeck(dx > 0 ? -1 : 1);
-  touchX = null;
-}, {passive:true});
+// drag-to-browse: grab a card and fling it left/right (mouse + touch)
+let dragX = null, suppressClick = false;
+const DRAG_THRESHOLD = 70;
+deckStage.addEventListener('pointerdown', e=>{
+  if(e.target.closest('a,button')) return; // links & buttons keep working
+  dragX = e.clientX;
+  deckShell.classList.add('dragging');
+  try{ deckStage.setPointerCapture(e.pointerId); }catch(err){}
+});
+deckStage.addEventListener('pointermove', e=>{
+  if(dragX === null) return;
+  deckStage.style.setProperty('--drag', (e.clientX - dragX) + 'px');
+});
+function endDrag(e){
+  if(dragX === null) return;
+  const dx = e.clientX - dragX;
+  dragX = null;
+  deckShell.classList.remove('dragging');
+  deckStage.style.transition = 'transform .3s cubic-bezier(.22,.8,.28,1)';
+  deckStage.style.setProperty('--drag', '0px');
+  setTimeout(()=>{ deckStage.style.transition = ''; }, 320);
+  if(Math.abs(dx) > DRAG_THRESHOLD){
+    suppressClick = true;
+    setTimeout(()=>{ suppressClick = false; }, 80);
+    moveDeck(dx > 0 ? -1 : 1);
+  }
+}
+deckStage.addEventListener('pointerup', endDrag);
+deckStage.addEventListener('pointercancel', endDrag);
+deckStage.addEventListener('dragstart', e=>e.preventDefault());
+deckStage.addEventListener('click', e=>{
+  if(suppressClick){ e.preventDefault(); e.stopPropagation(); }
+}, true);
 buildDeck();
 renderDeck();
 // last-push dates fill both the grid and the deck
